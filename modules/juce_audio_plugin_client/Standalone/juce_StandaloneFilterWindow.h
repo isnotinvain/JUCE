@@ -655,6 +655,7 @@ public:
           optionsButton ("Options")
     {
         setConstrainer (&decoratorConstrainer);
+        setUsingNativeTitleBar (true);
 
        #if JUCE_IOS || JUCE_ANDROID
         setTitleBarHeight (0);
@@ -865,15 +866,14 @@ private:
                 addAndMakeVisible (editor.get());
             }
 
-            addChildComponent (notification);
-
-            if (owner.pluginHolder->getProcessorHasPotentialFeedbackLoop())
-            {
-                inputMutedValue.addListener (this);
-                shouldShowNotification = inputMutedValue.getValue();
-            }
-
-            inputMutedChanged (shouldShowNotification);
+            // Notification banner disabled - input stays muted but no banner shown
+            // addChildComponent (notification);
+            // if (owner.pluginHolder->getProcessorHasPotentialFeedbackLoop())
+            // {
+            //     inputMutedValue.addListener (this);
+            //     shouldShowNotification = inputMutedValue.getValue();
+            // }
+            // inputMutedChanged (shouldShowNotification);
         }
 
         ~MainContentComponent() override
