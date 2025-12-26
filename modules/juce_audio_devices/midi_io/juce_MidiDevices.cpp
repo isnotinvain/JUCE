@@ -54,7 +54,12 @@ static std::shared_ptr<ump::Session> getLegacySession()
     if (auto strong = weak.lock())
         return strong;
 
-    if (auto session = ump::Endpoints::getInstance()->makeSession (ump::Endpoints::Impl::getGlobalMidiClientName()))
+    auto* endpoints = ump::Endpoints::getInstance();
+
+    if (endpoints == nullptr)
+        return nullptr;
+
+    if (auto session = endpoints->makeSession (ump::Endpoints::Impl::getGlobalMidiClientName()))
     {
         auto strong = std::make_shared<ump::Session> (std::move (session));
         weak = strong;
